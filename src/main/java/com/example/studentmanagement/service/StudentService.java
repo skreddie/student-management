@@ -27,6 +27,21 @@ public class StudentService {
         return repository.findById(id).orElse(null);
     }
 
+    public Student updateStudent(Long id, Student updatedStudent) {
+
+        Student existingStudent = repository.findById(id).orElse(null);
+
+        if (existingStudent == null) {
+            return null;
+        }
+
+        existingStudent.setName(updatedStudent.getName());
+        existingStudent.setEmail(updatedStudent.getEmail());
+        existingStudent.setCourse(updatedStudent.getCourse());
+
+        return repository.save(existingStudent);
+    }
+
     public void deleteStudent(Long id) {
         repository.deleteById(id);
     }
