@@ -1,5 +1,7 @@
 package com.example.studentmanagement.service;
 
+import com.example.studentmanagement.dto.StudentRequestDTO;
+import com.example.studentmanagement.dto.StudentResponseDTO;
 import com.example.studentmanagement.entity.Student;
 import com.example.studentmanagement.repository.StudentRepository;
 import org.springframework.stereotype.Service;
@@ -15,31 +17,67 @@ public class StudentService {
         this.repository = repository;
     }
 
-    public Student addStudent(Student student) {
-        return repository.save(student);
+    public StudentResponseDTO addStudent(StudentRequestDTO dto) {
+        Student student = new Student();
+        student.setName(dto.getName());
+        student.setEmail(dto.getEmail());
+        student.setCourse(dto.getCourse());
+
+        Student saved = repository.save(student);
+
+        return new StudentResponseDTO(
+                saved.getId(),
+                saved.getName(),
+                saved.getEmail(),
+                saved.getCourse()
+        );
     }
 
-    public List<Student> getAllStudents() {
-        return repository.findAll();
+    public List<StudentResponseDTO> getAllStudents() {
+        return repository.findAll()
+                .stream()
+                .map(s -> new StudentResponseDTO(
+                        s.getId(),
+                        s.getName(),
+                        s.getEmail(),
+                        s.getCourse()
+                ))
+                .toList();
     }
 
-    public Student getStudentById(Long id) {
-        return repository.findById(id).orElse(null);
+    public StudentResponseDTO getStudentById(Long id) {
+        Student s = repository.findById(id).orElse(null);
+        if (s == null) {
+            return null;
+        }
+
+        return new StudentResponseDTO(
+                s.getId(),
+                s.getName(),
+                s.getEmail(),
+                s.getCourse()
+        );
     }
 
-    public Student updateStudent(Long id, Student updatedStudent) {
-
+    public StudentResponseDTO updateStudent(Long id, StudentRequestDTO dto) {
         Student existingStudent = repository.findById(id).orElse(null);
 
         if (existingStudent == null) {
             return null;
         }
 
-        existingStudent.setName(updatedStudent.getName());
-        existingStudent.setEmail(updatedStudent.getEmail());
-        existingStudent.setCourse(updatedStudent.getCourse());
+        existingStudent.setName(dto.getName());
+        existingStudent.setEmail(dto.getEmail());
+        existingStudent.setCourse(dto.getCourse());
 
-        return repository.save(existingStudent);
+        Student updated = repository.save(existingStudent);
+
+        return new StudentResponseDTO(
+                updated.getId(),
+                updated.getName(),
+                updated.getEmail(),
+                updated.getCourse()
+        );
     }
 
     public void deleteStudent(Long id) {
