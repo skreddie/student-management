@@ -1,4 +1,4 @@
-package com.example.studentmanagement.dtos;
+package com.example.studentmanagement.dto;
 
 import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;

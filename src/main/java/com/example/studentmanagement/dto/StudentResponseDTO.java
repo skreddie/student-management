@@ -1,4 +1,4 @@
-package com.example.studentmanagement.dtos;
+package com.example.studentmanagement.dto;
 public class StudentResponseDTO {
 
     private Long id;
