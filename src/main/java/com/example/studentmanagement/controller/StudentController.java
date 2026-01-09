@@ -3,6 +3,7 @@ package com.example.studentmanagement.controller;
 import com.example.studentmanagement.dto.StudentRequestDTO;
 import com.example.studentmanagement.dto.StudentResponseDTO;
 import com.example.studentmanagement.service.StudentService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class StudentController {
     }
 
     @PostMapping
-    public StudentResponseDTO createStudent(@RequestBody StudentRequestDTO dto) {
+    public StudentResponseDTO createStudent(@Valid @RequestBody StudentRequestDTO dto) {
         return service.addStudent(dto);
     }
 
@@ -35,7 +36,7 @@ public class StudentController {
     @PutMapping("/{id}")
     public StudentResponseDTO updateStudent(
             @PathVariable Long id,
-            @RequestBody StudentRequestDTO dto) {
+            @Valid @RequestBody StudentRequestDTO dto) {
         return service.updateStudent(id, dto);
     }
 
