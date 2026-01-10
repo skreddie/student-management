@@ -1,18 +1,25 @@
 # Student Management REST API
 
-Spring Boot project demonstrating layered architecture and MySQL integration using Spring Data JPA.
+A simple and clean Spring Boot REST API for managing student records using MySQL.
+
+This project follows standard backend development practices including DTO mapping, input validation, and centralized exception handling.
 
 ## Tech Stack
-- Java 17
-- Spring Boot
-- Spring Data JPA
-- MySQL
+- Java 17+
+-Spring Boot
+-Spring Web
+-Spring Data JPA (Hibernate)
+-MySQL
+-Jakarta Validation
 
-## Status
-Project setup completed with database integration.  
-CRUD operations will be implemented incrementally.
+## Features
+-Create, read, update, and delete students
+-DTOs for request and response handling
+-Validation on input fields (@Valid, @NotBlank, @Email)
+-Global exception handling with @RestControllerAdvice
+-Proper HTTP status codes for all operations
 
-## Purpose
-Built for learning Spring Boot fundamentals and backend development concepts.
+
+
 
 
